@@ -1,4 +1,4 @@
-package com.helloxin.algorithm;
+package com.helloxin.algorithm.sort;
 
 public class BubbleSort {
 

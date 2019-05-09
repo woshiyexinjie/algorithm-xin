@@ -1,4 +1,4 @@
-package com.helloxin.algorithm;
+package com.helloxin.algorithm.sort;
 
 import java.util.ArrayList;
 import java.util.Arrays;
