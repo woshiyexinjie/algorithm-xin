@@ -15,8 +15,7 @@ public class QuickSort {
 
         while(end>start){
             //从后往前比较
-            while(end>start&&a[end]>=key)
-            {
+            while(end>start&&a[end]>=key) {
                 end--;
             }
             if(a[end]<key){
@@ -25,8 +24,7 @@ public class QuickSort {
                 a[start] = temp;
             }
             //从前往后比较
-            while(end>start&&a[start]<=key)
-            {
+            while(end>start&&a[start]<=key) {
                 start++;
             }
             if(a[start]>key){
@@ -44,8 +42,8 @@ public class QuickSort {
         }
     }
 
-    public static void sort(int[] a, int low, int high)
-    {
+    public static void sort(int[] a, int low, int high) {
+
         int i,j,t,temp;
         if(low>high) {
             return;
@@ -53,8 +51,8 @@ public class QuickSort {
         temp=a[low]; //基准
         i=low;
         j=high;
-        while(i!=j)
-        {
+        while(i!=j) {
+
             while(a[j]>=temp && i<j)//顺序很重要
             {
                 j--;
@@ -73,6 +71,7 @@ public class QuickSort {
         a[i]=temp;
         sort(a,low,i-1);//递归
         sort(a,i+1,high);
+
     }
 
     public static void main(String[] args) {
