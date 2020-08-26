@@ -1,5 +1,7 @@
 package com.helloxin.algorithm.search;
 
+import java.text.MessageFormat;
+
 public class BinarySearch {
 
     //二分查找是比较快速的方法 只是建立在数据是有序的情况下
@@ -28,10 +30,12 @@ public class BinarySearch {
     }
 
     public static void main(String[] args) {
-        int[] myList = {1, 3, 5, 7, 9};
+//        int[] myList = {1, 3, 5, 7, 9};
+//
+//        System.out.println(binarySearch(myList, 3)); // 1
+//        System.out.println(binarySearch(myList, -1)); // null
 
-        System.out.println(binarySearch(myList, 3)); // 1
-        System.out.println(binarySearch(myList, -1)); // null
+        System.out.println(MessageFormat.format(" {0}", 10000));
     }
 
 }

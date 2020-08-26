@@ -8,7 +8,7 @@ public class Node{
     String data;
     private Node lchild;
     private Node rchild;
-    Node(String data){
+    public Node(String data){
         this.data = data;
     }
     public String getData() {
