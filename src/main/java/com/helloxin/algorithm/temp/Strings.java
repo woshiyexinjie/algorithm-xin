@@ -1,10 +1,7 @@
 package com.helloxin.algorithm.temp;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public final class Strings {
 
@@ -12,90 +9,61 @@ public final class Strings {
         throw new AssertionError("Cannot be instantiated");
     }
 
-    public static void permuteAndPrint(String str) {
+    public static int countStringInStringV1(String string, String toFind) {
 
-        if (str == null || str.isEmpty()) {
-            // or throw IllegalArgumentException
-            return;
+        if (string == null || toFind == null) {
+            throw new IllegalArgumentException("The given strings cannot be null");
         }
 
-        permuteAndPrint("", str);
+        if (string.isEmpty() || toFind.isEmpty()) {
+            return 0;
+        }
+
+        int position = 0;
+        int count = 0;
+        int n = toFind.length();
+
+        while ((position = string.indexOf(toFind, position)) != -1) {
+            position = position + n;
+            count++;
+        }
+
+        return count;
     }
 
-    private static void permuteAndPrint(String prefix, String str) {
+    public static int countStringInStringV2(String string, String toFind) {
 
-        int n = str.length();
-        if (n == 0) {
-            System.out.print(prefix + " ");
-        } else {
-            for (int i = 0; i < n; i++) {
-                permuteAndPrint(prefix + str.charAt(i),
-                        str.substring(i + 1, n) + str.substring(0, i));
-            }
+        if (string == null || toFind == null) {
+            throw new IllegalArgumentException("The given strings cannot be null");
         }
+
+        if (string.isEmpty() || toFind.isEmpty()) {
+            return 0;
+        }
+
+        return string.split(Pattern.quote(toFind), -1).length - 1;
     }
 
-    public static Set<String> permuteAndStore(String str) {
+    public static int countStringInStringV3(String string, String toFind) {
 
-        if (str == null || str.isEmpty()) {
-            // or throw IllegalArgumentException
-            return Collections.emptySet();
+        if (string == null || toFind == null) {
+            throw new IllegalArgumentException("The given strings cannot be null");
         }
 
-        return permuteAndStore("", str);
-    }
-
-    private static Set<String> permuteAndStore(String prefix, String str) {
-
-        Set<String> permutations = new HashSet<>();
-
-        int n = str.length();
-        if (n == 0) {
-            permutations.add(prefix);
-        } else {
-            for (int i = 0; i < n; i++) {
-                permutations.addAll(permuteAndStore(prefix + str.charAt(i),
-                        str.substring(i + 1, n) + str.substring(0, i)));
-            }
-        }
-        return permutations;
-    }
-
-    public static void permuteAndPrintStream(String str) {
-
-        if (str == null || str.isEmpty()) {
-            // or throw IllegalArgumentException
-            return;
+        if (string.isEmpty() || toFind.isEmpty()) {
+            return 0;
         }
 
-        permuteAndPrintStream("", str);
+        Pattern pattern = Pattern.compile(Pattern.quote(toFind));
+        Matcher matcher = pattern.matcher(string);
 
-    }
-
-    private static void permuteAndPrintStream(String prefix, String str) {
-
-        int n = str.length();
-        if (n == 0) {
-            System.out.print(prefix + " ");
-        } else {
-            IntStream.range(0, n)
-                    .parallel()
-                    .forEach(i -> permuteAndPrintStream(prefix + str.charAt(i),
-                    str.substring(i + 1, n) + str.substring(0, i)));
-        }
-    }
-
-    public static Stream<String> permuteAndReturnStream(String str) {
-
-        if (str == null || str.isEmpty()) {
-            return Stream.of("");
+        int position = 0;
+        int count = 0;
+        while (matcher.find(position)) {           
+            position = matcher.start() + 1;
+            count++;
         }
 
-        return IntStream.range(0, str.length())
-                .parallel()
-                .boxed()
-                .flatMap(i -> permuteAndReturnStream(str.substring(0, i) + str.substring(i + 1))
-                .map(c -> str.charAt(i) + c)
-                );
+        return count;
     }
 }

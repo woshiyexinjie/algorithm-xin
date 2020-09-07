@@ -1,56 +1,35 @@
 package com.helloxin.algorithm.temp;
 
-import java.util.Set;
+import java.time.Clock;
 import java.util.concurrent.TimeUnit;
-import java.util.stream.Stream;
 
 public class Main {
 
-    private static final String TEXT = "ABC";
+    private static final String STRING = "111111";
+    private static final String SUBSTRING = "11";
 
     public static void main(String[] args) {
 
-        System.out.println("Input text: \n" + TEXT + "\n");
+        Clock clock = Clock.systemUTC();
+        long startTimeV1 = clock.millis();
+        int countV1 = Strings.countStringInStringV1(STRING, SUBSTRING);
+        displayExecutionTime(clock.millis() - startTimeV1);
+        System.out.println("V1: '" + SUBSTRING + "' has occured " + countV1 + " times in '" + STRING + "'");
 
-        System.out.println("Permute and store in Set - recursive solution:");
-        long startTimeV1 = System.nanoTime();
+        long startTimeV2 = clock.millis();
+        int countV2 = Strings.countStringInStringV2(STRING, SUBSTRING);
+        displayExecutionTime(clock.millis() - startTimeV2);
+        System.out.println("V2: '" + SUBSTRING + "' has occured " + countV2 + " times in '" + STRING + "'");
 
-        Set<String> collector = Strings.permuteAndStore(TEXT);
-
-        displayExecutionTime(System.nanoTime() - startTimeV1);
-        System.out.println(collector);
-
-        System.out.println();
-        System.out.println("Permute and print - recursive solution:");
-        long startTimeV2 = System.nanoTime();
-
-        Strings.permuteAndPrint(TEXT);
-
-        System.out.println();
-        displayExecutionTime(System.nanoTime() - startTimeV2);
-
-        System.out.println();
-        System.out.println("Permute and return Stream - recursive solution:");
-        long startTimeV3 = System.nanoTime();
-
-        Stream<String> result = Strings.permuteAndReturnStream(TEXT);
-
-        displayExecutionTime(System.nanoTime() - startTimeV3);
-        result.forEach(System.out::println);
-
-        System.out.println();
-        System.out.println("Permute and print Stream - recursive solution:");
-        long startTimeV4 = System.nanoTime();
-
-        Strings.permuteAndPrintStream(TEXT);
-
-        System.out.println();
-        displayExecutionTime(System.nanoTime() - startTimeV4);
+        long startTimeV3 = clock.millis();
+        int countV3 = Strings.countStringInStringV3(STRING, SUBSTRING);
+        displayExecutionTime(clock.millis() - startTimeV3);
+        System.out.println("V3: '" + SUBSTRING + "' has occured " + countV3 + " times in '" + STRING + "'");
     }
 
     private static void displayExecutionTime(long time) {
-        System.out.println("Execution time: " + time + " ns" + " ("
-                + TimeUnit.MILLISECONDS.convert(time, TimeUnit.NANOSECONDS) + " ms)");
+        System.out.println("Execution time: " + time + " ms" + " ("
+                + TimeUnit.SECONDS.convert(time, TimeUnit.MILLISECONDS) + " s)");
     }
 
 }
